@@ -27,6 +27,17 @@ body {
     font-family: Arial;
 }
 
+/* Indicador */
+#toca {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    color: #ffff00;
+    font-size: 16px;
+    opacity: 0.8;
+}
+
 /* Flores */
 .flower {
     position: absolute;
@@ -34,7 +45,7 @@ body {
     pointer-events: none;
 }
 
-/* Caer (desde arriba) */
+/* Caer */
 @keyframes caer {
     0% {
         transform: translateY(-10vh);
@@ -46,7 +57,7 @@ body {
     }
 }
 
-/* Subir (desde abajo) */
+/* Subir */
 @keyframes subir {
     0% {
         transform: translateY(0);
@@ -63,20 +74,32 @@ body {
 <body>
 
 <h1 id="mensaje"></h1>
+<div id="toca">Toca la pantalla para activar la música 💛</div>
 
-<audio id="musica" loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+<!-- 🎵 Música -->
+<audio id="musica" loop autoplay muted>
+  <source src="audio.mp3.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-// 🎵 Música (requiere clic)
+// 🎵 Música desde segundo 50
 const musica = document.getElementById("musica");
+
+// Intentar iniciar desde 50
+musica.addEventListener("loadedmetadata", () => {
+    musica.currentTime = 50;
+});
+
+// Activar sonido al tocar
 document.body.addEventListener("click", () => {
+    musica.muted = false;
+    musica.currentTime = 50;
     musica.play();
+    document.getElementById("toca").style.display = "none";
 }, { once: true });
 
 // 💛 Texto animado
-const texto = "Más hermosa que las flores eres tú mi niña, te quiero 💛por si no te las dieron yo te las doy estas flores para que no seas espectadora💛";
+const texto = "Más hermosa que las flores eres tú mi niña, te quiero 💛";
 let i = 0;
 
 function escribir() {
@@ -88,30 +111,24 @@ function escribir() {
 }
 escribir();
 
-// 🌼 FLORES AMARILLAS
+// 🌼 Flores amarillas
 const flores = ["🌼", "🌻"];
 
 function crearFlor() {
     const flor = document.createElement("div");
     flor.className = "flower";
 
-    // Posición horizontal
     flor.style.left = Math.random() * 100 + "vw";
 
-    // Duración
     const duracion = (Math.random() * 3 + 3);
     flor.style.animationDuration = duracion + "s";
 
-    // Elegir flor
     flor.innerHTML = flores[Math.floor(Math.random() * flores.length)];
 
-    // 🔥 Desde arriba o desde abajo
     if (Math.random() > 0.5) {
-        // Desde arriba
         flor.style.top = "-10vh";
         flor.style.animation = "caer " + duracion + "s linear";
     } else {
-        // Desde abajo
         flor.style.top = "110vh";
         flor.style.animation = "subir " + duracion + "s linear";
     }
@@ -123,7 +140,6 @@ function crearFlor() {
     }, duracion * 1000);
 }
 
-// Generar flores constantemente
 setInterval(crearFlor, 300);
 </script>
 
