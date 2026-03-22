@@ -16,7 +16,6 @@ body {
     height: 100vh;
 }
 
-/* Texto */
 #mensaje {
     position: absolute;
     top: 20%;
@@ -26,7 +25,6 @@ body {
     color: white;
 }
 
-/* Texto tocar */
 #toca {
     position: absolute;
     bottom: 20px;
@@ -35,13 +33,11 @@ body {
     color: yellow;
 }
 
-/* Flores */
 .flower {
     position: absolute;
     font-size: 24px;
 }
 
-/* Animaciones */
 @keyframes caer {
     0% { transform: translateY(-10vh); }
     100% { transform: translateY(110vh); }
@@ -59,23 +55,23 @@ body {
 <h1 id="mensaje"></h1>
 <div id="toca">Toca la pantalla para escuchar 💛</div>
 
-<!-- 🎵 AUDIO CORREGIDO -->
-<audio id="musica" loop preload="auto">
-  <source src="audio.mp3.mp3" type="audio/mpeg">
-</audio>
+<!-- 🎵 MÚSICA DESDE SEGUNDO 48 -->
+<iframe 
+id="musicaYT"
+src="https://www.youtube.com/embed/cFkim468SVg?start=48&autoplay=1&loop=1&playlist=cFkim468SVg&mute=1"
+allow="autoplay"
+style="width:0;height:0;border:0;">
+</iframe>
 
 <script>
-// 🎵 Música (ARREGLADO)
-const musica = document.getElementById("musica");
-
+// Activar música con sonido
 document.body.addEventListener("click", () => {
-    musica.currentTime = 50; // empieza en segundo 50
-    musica.muted = false;
-    musica.play().catch(e => console.log(e));
+    const iframe = document.getElementById("musicaYT");
+    iframe.src = "https://www.youtube.com/embed/cFkim468SVg?start=48&autoplay=1&loop=1&playlist=cFkim468SVg";
     document.getElementById("toca").style.display = "none";
 }, { once: true });
 
-// 💛 Texto
+// Texto animado
 const texto = "Más hermosa que las flores eres tú mi niña, te quiero 💛 por si no te las dieron yo te las doy estas flores para que no seas espectadora💛";
 let i = 0;
 
@@ -88,7 +84,7 @@ function escribir() {
 }
 escribir();
 
-// 🌼 Flores
+// Flores animadas
 const flores = ["🌼","🌻"];
 
 function crearFlor() {
