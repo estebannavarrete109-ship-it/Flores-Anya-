@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" href="img/flowers.png" type="image/x-icon">
+    <title>para ti anya💛</title>
+    <style>
+        /* Estilos para los puntitos amarillos */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: #ffff00;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ffff00, 0 0 20px #ffff00;
+            animation: fall linear infinite;
+            z-index: 10;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) translateX(0);
+            }
+            100% {
+                transform: translateY(100vh) translateX(30px);
+            }
+        }
+
+        /* ...additional styles... */
+    </style>
+</head>
+
+<body class="container">
+    <!-- Elementos para los efectos de texto -->
+    <div class="aura-text" id="aura-text"></div>
+    <div class="final-message" id="final-message"></div>
+
+    <div class="night"></div>
+    <div class="particles" id="particles"></div>
+    <div class="flowers">
+      <!-- Multiple flower divs with complex structure -->
+    </div>
+    
+    <!-- Audio -->
+    <audio id="background-music" loop>
+        <source src="audio.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+    
+    <script>
+        // Initialization on page load
+        window.addEventListener('load', function() {
+            const backgroundMusic = document.getElementById('background-music');
+            
+            // Auto-play music
+            backgroundMusic.play().catch(error => {
+                console.log('Reproducción automática prevenida:', error);
+                alert('Por favor, haz clic en cualquier parte de la página para iniciar la música');
+                document.body.addEventListener('click', function() {
+                    backgroundMusic.play();
+                }, { once: true });
+            });
+            
+            // Start particles after 3 seconds
+            setTimeout(startParticles, 3000);
+            
+            // Start effects sequence after 8 seconds
+            setTimeout(startEffectsSequence, 8000);
+        });
+
+        // Yellow particles animation code
+        // ... particle generation and animation logic ...
+
+        // Aura and text effects
+        function startEffectsSequence() {
+            // Create aura rising from flower
+            const flower = document.querySelector('.flower--1');
+            const aura = document.createElement('div');
+            aura.className = 'flower-aura';
+            document.body.appendChild(aura);
+            
+            // Aura animation
+            aura.style.opacity = '1';
+            aura.style.height = '0';
+            aura.style.transition = 'height 8s ease-out, opacity 8s ease-out';
+            
+            setTimeout(() => {
+              aura.style.bottom = '0';
+            }, 50);
+            
+            // Show text with hacker effect
+            setTimeout(() => {
+                showHackerText();
+            }, 2000);
+            
+            // Remove aura after animation
+            setTimeout(() => {
+                aura.style.opacity = '0';
+                setTimeout(() => {
+                    aura.remove();
+                }, 1000);
+            }, 8000);
+        }
+        
+        function showHackerText() {
+            const message = "Mas hermosa que las flores eres tu mi niña, te quiwro viste no se me olvido❤️";
+            // ... text animation logic ...
+        }
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>
