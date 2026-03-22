@@ -64,15 +64,9 @@ style="width:0;height:0;border:0;">
 </iframe>
 
 <script>
-// Activar música con sonido
-document.body.addEventListener("click", () => {
-    const iframe = document.getElementById("musicaYT");
-    iframe.src = "https://www.youtube.com/embed/cFkim468SVg?start=48&autoplay=1&loop=1&playlist=cFkim468SVg";
-    document.getElementById("toca").style.display = "none";
-}, { once: true });
 
-// Texto animado
-const texto = "Más hermosa que las flores eres tú mi niña, te quiero 💛 por si no te las dieron yo te las doy estas flores para que no seas espectadora💛";
+// 💛 TEXTO
+const texto = "Más hermosa que las flores eres tú mi niña, te quiero 💛 Por si no te las dieron, yo te las doy estas flores para que no seas espectadora 💛";
 let i = 0;
 
 function escribir() {
@@ -82,10 +76,10 @@ function escribir() {
         setTimeout(escribir, 50);
     }
 }
-escribir();
 
-// Flores animadas
+// 🌼 FLORES
 const flores = ["🌼","🌻"];
+let intervaloFlores;
 
 function crearFlor() {
     const flor = document.createElement("div");
@@ -110,7 +104,24 @@ function crearFlor() {
     setTimeout(() => flor.remove(), duracion * 1000);
 }
 
-setInterval(crearFlor, 300);
+// 🚀 TODO INICIA AL MISMO TIEMPO
+document.body.addEventListener("click", () => {
+
+    // 🎵 música
+    const iframe = document.getElementById("musicaYT");
+    iframe.src = "https://www.youtube.com/embed/cFkim468SVg?start=48&autoplay=1&loop=1&playlist=cFkim468SVg";
+
+    // 💛 texto
+    escribir();
+
+    // 🌼 flores
+    intervaloFlores = setInterval(crearFlor, 300);
+
+    // ocultar mensaje
+    document.getElementById("toca").style.display = "none";
+
+}, { once: true });
+
 </script>
 
 </body>
