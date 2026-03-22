@@ -24,49 +24,32 @@ body {
     text-align: center;
     font-size: 24px;
     color: white;
-    font-family: Arial;
 }
 
-/* Indicador */
+/* Texto tocar */
 #toca {
     position: absolute;
     bottom: 20px;
     width: 100%;
     text-align: center;
-    color: #ffff00;
-    font-size: 16px;
-    opacity: 0.8;
+    color: yellow;
 }
 
 /* Flores */
 .flower {
     position: absolute;
     font-size: 24px;
-    pointer-events: none;
 }
 
-/* Caer */
+/* Animaciones */
 @keyframes caer {
-    0% {
-        transform: translateY(-10vh);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(110vh);
-        opacity: 0;
-    }
+    0% { transform: translateY(-10vh); }
+    100% { transform: translateY(110vh); }
 }
 
-/* Subir */
 @keyframes subir {
-    0% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-120vh);
-        opacity: 0;
-    }
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-120vh); }
 }
 </style>
 </head>
@@ -74,32 +57,26 @@ body {
 <body>
 
 <h1 id="mensaje"></h1>
-<div id="toca">Toca la pantalla para activar la música 💛</div>
+<div id="toca">Toca la pantalla para escuchar 💛</div>
 
-<!-- 🎵 Música -->
-<audio id="musica" loop autoplay muted>
+<!-- 🎵 AUDIO CORREGIDO -->
+<audio id="musica" loop preload="auto">
   <source src="audio.mp3.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-// 🎵 Música desde segundo 50
+// 🎵 Música (ARREGLADO)
 const musica = document.getElementById("musica");
 
-// Intentar iniciar desde 50
-musica.addEventListener("loadedmetadata", () => {
-    musica.currentTime = 50;
-});
-
-// Activar sonido al tocar
 document.body.addEventListener("click", () => {
+    musica.currentTime = 50; // empieza en segundo 50
     musica.muted = false;
-    musica.currentTime = 50;
-    musica.play();
+    musica.play().catch(e => console.log(e));
     document.getElementById("toca").style.display = "none";
 }, { once: true });
 
-// 💛 Texto animado
-const texto = "Más hermosa que las flores eres tú mi niña, te quiero 💛";
+// 💛 Texto
+const texto = "Más hermosa que las flores eres tú mi niña, te quiero 💛 por si no te las dieron yo te las doy estas flores para que no seas espectadora💛";
 let i = 0;
 
 function escribir() {
@@ -111,8 +88,8 @@ function escribir() {
 }
 escribir();
 
-// 🌼 Flores amarillas
-const flores = ["🌼", "🌻"];
+// 🌼 Flores
+const flores = ["🌼","🌻"];
 
 function crearFlor() {
     const flor = document.createElement("div");
@@ -120,10 +97,7 @@ function crearFlor() {
 
     flor.style.left = Math.random() * 100 + "vw";
 
-    const duracion = (Math.random() * 3 + 3);
-    flor.style.animationDuration = duracion + "s";
-
-    flor.innerHTML = flores[Math.floor(Math.random() * flores.length)];
+    const duracion = Math.random() * 3 + 3;
 
     if (Math.random() > 0.5) {
         flor.style.top = "-10vh";
@@ -133,11 +107,11 @@ function crearFlor() {
         flor.style.animation = "subir " + duracion + "s linear";
     }
 
+    flor.innerHTML = flores[Math.floor(Math.random() * flores.length)];
+
     document.body.appendChild(flor);
 
-    setTimeout(() => {
-        flor.remove();
-    }, duracion * 1000);
+    setTimeout(() => flor.remove(), duracion * 1000);
 }
 
 setInterval(crearFlor, 300);
