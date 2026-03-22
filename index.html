@@ -31,9 +31,10 @@ body {
 .flower {
     position: absolute;
     font-size: 24px;
-    animation: caer linear forwards;
+    pointer-events: none;
 }
 
+/* Caer (desde arriba) */
 @keyframes caer {
     0% {
         transform: translateY(-10vh);
@@ -41,6 +42,18 @@ body {
     }
     100% {
         transform: translateY(110vh);
+        opacity: 0;
+    }
+}
+
+/* Subir (desde abajo) */
+@keyframes subir {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-120vh);
         opacity: 0;
     }
 }
@@ -56,13 +69,13 @@ body {
 </audio>
 
 <script>
-// 🎵 Música
+// 🎵 Música (requiere clic)
 const musica = document.getElementById("musica");
 document.body.addEventListener("click", () => {
     musica.play();
 }, { once: true });
 
-// 💛 Texto (CORREGIDO)
+// 💛 Texto animado
 const texto = "Más hermosa que las flores eres tú mi niña, te quiero 💛";
 let i = 0;
 
@@ -81,20 +94,36 @@ const flores = ["🌼", "🌻"];
 function crearFlor() {
     const flor = document.createElement("div");
     flor.className = "flower";
-    
+
+    // Posición horizontal
     flor.style.left = Math.random() * 100 + "vw";
-    flor.style.animationDuration = (Math.random() * 3 + 3) + "s";
-    
+
+    // Duración
+    const duracion = (Math.random() * 3 + 3);
+    flor.style.animationDuration = duracion + "s";
+
+    // Elegir flor
     flor.innerHTML = flores[Math.floor(Math.random() * flores.length)];
+
+    // 🔥 Desde arriba o desde abajo
+    if (Math.random() > 0.5) {
+        // Desde arriba
+        flor.style.top = "-10vh";
+        flor.style.animation = "caer " + duracion + "s linear";
+    } else {
+        // Desde abajo
+        flor.style.top = "110vh";
+        flor.style.animation = "subir " + duracion + "s linear";
+    }
 
     document.body.appendChild(flor);
 
     setTimeout(() => {
         flor.remove();
-    }, 6000);
+    }, duracion * 1000);
 }
 
-// Generar flores continuamente
+// Generar flores constantemente
 setInterval(crearFlor, 300);
 </script>
 
