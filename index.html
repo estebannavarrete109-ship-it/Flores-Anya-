@@ -3,41 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para ti Anya💛</title>
+<title>Para ti Anya 💛</title>
 
 <style>
 body {
     margin: 0;
     background: black;
     overflow: hidden;
-    font-family: Arial, sans-serif;
-    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-/* Estrellas */
-.particle {
+/* Flores */
+.flower {
     position: absolute;
-    width: 3px;
-    height: 3px;
-    background: yellow;
-    border-radius: 50%;
-    animation: fall linear infinite;
+    bottom: 0;
+    animation: subir 6s linear infinite;
+    font-size: 30px;
 }
 
-@keyframes fall {
-    0% { transform: translateY(-100px); }
-    100% { transform: translateY(100vh); }
+@keyframes subir {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-100vh); opacity: 0; }
 }
 
 /* Texto */
-#mensaje {
+h1 {
     position: absolute;
-    top: 50%;
-    width: 100%;
+    color: white;
     text-align: center;
+    top: 40%;
+    width: 100%;
     font-size: 22px;
-    transform: translateY(-50%);
-    padding: 20px;
+    font-family: Arial;
+    animation: aparecer 3s ease;
+}
+
+@keyframes aparecer {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 </style>
 </head>
@@ -46,11 +52,14 @@ body {
 
 <h1 id="mensaje"></h1>
 
-<script>
-// TEXTO
-const texto = "Más hermosa que las flores eres tú, mi niña. Te quiero, ¿viste? No se me olvidó ❤️";
+<audio autoplay loop>
+    <source src="https://www.myinstants.com/media/sounds/romantic.mp3" type="audio/mpeg">
+</audio>
 
+<script>
+const texto = "Más hermosa que las flores eres tú mi niña, te quiero ❤️";
 let i = 0;
+
 function escribir() {
     if (i < texto.length) {
         document.getElementById("mensaje").innerHTML += texto.charAt(i);
@@ -60,20 +69,20 @@ function escribir() {
 }
 escribir();
 
-// PARTÍCULAS
-function crearParticula() {
-    const p = document.createElement("div");
-    p.className = "particle";
-    p.style.left = Math.random() * window.innerWidth + "px";
-    p.style.animationDuration = (Math.random() * 3 + 2) + "s";
-    document.body.appendChild(p);
+/* Generar flores */
+function crearFlor() {
+    const flor = document.createElement("div");
+    flor.className = "flower";
+    flor.style.left = Math.random() * 100 + "vw";
+    flor.innerHTML = "🌸";
+    document.body.appendChild(flor);
 
     setTimeout(() => {
-        p.remove();
-    }, 5000);
+        flor.remove();
+    }, 6000);
 }
 
-setInterval(crearParticula, 100);
+setInterval(crearFlor, 300);
 </script>
 
 </body>
