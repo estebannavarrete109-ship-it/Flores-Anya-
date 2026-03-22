@@ -73,8 +73,8 @@ escribir();
 function crearFlor() {
     const flor = document.createElement("div");
     flor.className = "flower";
-    flor.style.left = Math.random() * 100 + "vw";
-    flor.innerHTML = "🌸";
+    flor.style.left = Math.random() * 100 + "const flores = ["🌼","🌻","🌼","🌻"];
+flor.innerHTML = flores[Math.floor(Math.random() * flores.length)];
     document.body.appendChild(flor);
 
     setTimeout(() => {
